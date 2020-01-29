@@ -89,7 +89,7 @@ class graph:
             if G.E[i,j] == 1:
                 g_plot.add_edge(i,j)
         
-        nx.draw(g_plot)
+        nx.draw(g_plot,with_labels = True)
         plt.show()
 
 
