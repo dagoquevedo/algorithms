@@ -1,101 +1,91 @@
-#Project    : Activity 1 - Algorithms
+#Project    : Algorithms - Activity 1
 #Developer: : Dago Quevedo
 #Date       : Jan 20
 
 import random
 import math
 
-#density
-def dens(G):
-    V = G[0]
-    E = G[1]
-    n = len(V)
-    m = sum(G[1].values())/2
-    dens = m / ((n * (n - 1)) / 2.0)
+class graph:
+    def __init__(self,m):
+        self.m = m
+        self.V = list(range(0,self.m))
+        self.E = {}
+        self.D = {}
+        self.G = {}
 
-    return dens
+        for (i,j) in [(a,b) for a in self.V for b in self.V]:
+            if i == j:
+                self.E[i,j] = 0
+                continue
 
-#distance
-def dist(G):
-    d = {}
-    for s in G[0]:
-        K = dijkstra(G,s)
-        for t in K.keys():
-            d[s,t] = K[t] if K[t] != math.inf else 0
+            if (j,i) not in self.E.keys():
+                self.E[i,j] = round(random.uniform(0,1))
+            else:
+                self.E[i,j] = self.E[j,i]
+                
+        self.dist()
+        self.grad()
+        
+    def dens(self):
+        n = len(self.V)
+        m = sum(self.E.values()) / 2.0
+        dens = m / ((n * (n - 1))/ 2.0)
 
-    return d
-
-#Dijkstra algorithm
-def dijkstra(G,s):
-    d = {}
-    v = {}
-    V = G[0]
-    E = G[1]
-    for w in V:
-        v[w] = 0
-        if E[s,w] == 0:
-            d[w] = math.inf
-        else:
-            d[w] = 1
+        return dens
+        
+    def dist(self):
+        for s in self.V:
+            K = self.dijkstra(s)
+            for t in K.keys():
+                self.D[s,t] = K[t] if K[t] != math.inf else 0
+                
+    def grad(self):
+        for i in self.V:
+            self.G[i] = sum([self.E[i,j] for j in self.V])
             
-    d[s] = 0
-    v[s] = 1
-    
-    while sum(v.values()) < len(v):
-        min_val = math.inf
-        min_key = None
-        for j in V:
-            if v[j] == 0:
-                if d[j] <= min_val:
-                    min_val = d[j]
-                    min_key = j
-            
-        q = min_key
-        if q != None:
-            v[q] = 1
-            for y in [j for j in V if E[q,j] == 1]:
-                if d[y] > d[q] + 1:
-                   d[y] = d[q] + 1
-    
-    return d
+    def diam(self):
+        return max(self.D.values())
 
-#Grade
-def grad(G):
-    g = {}
-    E = G[1]
-    for i in G[0]:
-        g[i] = sum([E[i,j] for j in V])
-
-    return g
-
-#Diameter
-def diam(G):
-    d = dist(G)
-    return max(d.values())
+    def dijkstra(self,s):
+        d = {}
+        v = {}
+        for w in self.V:
+            v[w] = 0
+            if self.E[s,w] == 0:
+                d[w] = math.inf
+            else:
+                d[w] = 1
+                
+        d[s] = 0
+        v[s] = 1
+        
+        while sum(v.values()) < len(v):
+            min_val = math.inf
+            min_key = None
+            for j in self.V:
+                if v[j] == 0:
+                    if d[j] <= min_val:
+                        min_val = d[j]
+                        min_key = j
+                
+            q = min_key
+            if q != None:
+                v[q] = 1
+                for y in [j for j in self.V if self.E[q,j] == 1]:
+                    if d[y] > d[q] + 1:
+                       d[y] = d[q] + 1
+        
+        return d
 
 #Main
 if __name__== '__main__':
     #parameter
-    M = 50
     
-    V = list(range(0,M))
-    E = {}
-    
-    for (i,j) in [(a,b) for a in V for b in V]:
-        if i == j:
-            E[i,j] = 0
-            continue
-    
-        if (j,i) not in E.keys():
-            E[i,j] = round(random.uniform(0,1))
-        else:
-            E[i,j] = E[j,i]
-        
-    G = (V,E)
+    G = graph(5)
 
-    print('Diameter: %d' % diam(G))
-    print('Density: %4.2f' % dens(G))
-    c = grad(G)
-    print('Node with the minimum centrality: %d' % min(c, key=c.get))
-    print('Node with the maximum centrality: %d' % max(c, key=c.get))
+    print('Diameter: %d' % G.diam())
+    print('Density: %4.2f' % G.dens())
+    
+    print('Node with the minimum centrality: %d' % min(G.G, key=G.G.get))
+    print('Node with the maximum centrality: %d' % max(G.G, key=G.G.get))
     
