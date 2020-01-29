@@ -6,6 +6,7 @@ import random
 import math
 import sys
 import networkx as nx
+import matplotlib.pyplot as plt
 
 class graph:
     def __init__(self,m):
@@ -77,10 +78,22 @@ class graph:
 if __name__== '__main__':
     #parameter
     
-    G = graph(5)
+    G = graph(10)
 
     print('Diameter: %d' % G.diam())
     print('Density: %4.2f' % G.dens())
     
     print('Node with the minimum centrality: %d' % min(G.G, key=G.G.get))
     print('Node with the maximum centrality: %d' % max(G.G, key=G.G.get))
+    
+    g_plot = nx.Graph()
+    
+    for i in G.V:
+        g_plot.add_node(i)
+    
+    for (i,j) in G.E:
+        if G.E[i,j] == 1:
+            g_plot.add_edge(i,j)
+    
+    nx.draw(g_plot)
+    plt.show()
