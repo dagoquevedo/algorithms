@@ -9,6 +9,6 @@ The application requires the following python librarys:
 
 > A1.py [m]
 
-where [m] is the number of nodes, then by 5 nodes a real execution example is
+where [m] is the number of nodes, for example by 5 nodes,
 
 > A1.py 5
