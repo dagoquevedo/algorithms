@@ -9,6 +9,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 class graph:
+    #Init class
     def __init__(self,m):
         self.m = m
         self.V = list(range(0,self.m))
@@ -26,6 +27,7 @@ class graph:
         self.dist()
         self.grad()
         
+    #Density
     def dens(self):
         n = len(self.V)
         m = sum(self.E.values()) / 2.0
@@ -33,19 +35,23 @@ class graph:
 
         return dens
         
+    #Distance
     def dist(self):
         for s in self.V:
             K = self.dijkstra(s)
             for t in K.keys():
                 self.D[s,t] = K[t] if K[t] != math.inf else 0
-                
+         
+    #Grade
     def grad(self):
         for i in self.V:
             self.G[i] = sum([self.E[i,j] for j in self.V])
-            
+    
+    #Diameter
     def diam(self):
         return max(self.D.values())
 
+    #Dijkstra algorithm
     def dijkstra(self,s):
         d = {}
         v = {}
@@ -73,7 +79,8 @@ class graph:
                        d[y] = d[q] + 1
         
         return d
-        
+    
+    #plot object
     def plot(self):
         g_plot = nx.Graph()
         for i in G.V:
@@ -85,16 +92,18 @@ class graph:
         nx.draw(g_plot)
         plt.show()
 
-#Main
+
 if __name__== '__main__':
-    #parameter
+    if len(sys.argv) < 2:
+        print('Failed operation, a number of nodes are expected')
+        sys.exit()
     
-    G = graph(10)
+    G = graph(int(sys.argv[1]))
 
     print('Diameter: %d' % G.diam())
     print('Density: %4.2f' % G.dens())
-    
+        
     print('Node with the minimum centrality: %d' % min(G.G, key=G.G.get))
     print('Node with the maximum centrality: %d' % max(G.G, key=G.G.get))
-    
+        
     G.plot()
