@@ -5,6 +5,7 @@
 import random
 import math
 import sys
+import networkx as nx
 
 class graph:
     def __init__(self,m):
@@ -83,4 +84,3 @@ if __name__== '__main__':
     
     print('Node with the minimum centrality: %d' % min(G.G, key=G.G.get))
     print('Node with the maximum centrality: %d' % max(G.G, key=G.G.get))
-    
