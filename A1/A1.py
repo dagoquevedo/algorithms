@@ -4,6 +4,7 @@
 
 import random
 import math
+import sys
 
 class graph:
     def __init__(self,m):
@@ -18,10 +19,7 @@ class graph:
                 self.E[i,j] = 0
                 continue
 
-            if (j,i) not in self.E.keys():
-                self.E[i,j] = round(random.uniform(0,1))
-            else:
-                self.E[i,j] = self.E[j,i]
+            self.E[i,j] = round(random.uniform(0,1)) if (j,i) not in self.E.keys() else self.E[j,i]
                 
         self.dist()
         self.grad()
@@ -51,11 +49,8 @@ class graph:
         v = {}
         for w in self.V:
             v[w] = 0
-            if self.E[s,w] == 0:
-                d[w] = math.inf
-            else:
-                d[w] = 1
-                
+            d[w] = math.inf if self.E[s,w] == 0 else 1
+
         d[s] = 0
         v[s] = 1
         
