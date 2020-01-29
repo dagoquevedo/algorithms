@@ -73,6 +73,17 @@ class graph:
                        d[y] = d[q] + 1
         
         return d
+        
+    def plot(self):
+        g_plot = nx.Graph()
+        for i in G.V:
+            g_plot.add_node(i)
+        for (i,j) in G.E:
+            if G.E[i,j] == 1:
+                g_plot.add_edge(i,j)
+        
+        nx.draw(g_plot)
+        plt.show()
 
 #Main
 if __name__== '__main__':
@@ -86,14 +97,4 @@ if __name__== '__main__':
     print('Node with the minimum centrality: %d' % min(G.G, key=G.G.get))
     print('Node with the maximum centrality: %d' % max(G.G, key=G.G.get))
     
-    g_plot = nx.Graph()
-    
-    for i in G.V:
-        g_plot.add_node(i)
-    
-    for (i,j) in G.E:
-        if G.E[i,j] == 1:
-            g_plot.add_edge(i,j)
-    
-    nx.draw(g_plot)
-    plt.show()
+    G.plot()
