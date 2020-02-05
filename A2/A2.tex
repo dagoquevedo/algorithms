@@ -42,7 +42,9 @@ El gráfico \ref{fig:ie} muestra los resultados del diseño experimental en el t
   \label{fig:ie}
 \end{figure}
 
-Los resultados muestran que no existe evidencia suficiente a partir del tiempo de computo para concluir que una implementación es mejor que otra, esto debido a que el número de operaciones requerido para ambas implementaciones es aproximadamente igual.
+Los resultados gráficos muestran que no existe evidencia suficiente a partir del tiempo de computo para concluir que una implementación es mejor que otra. Para reforzar esta conclusión se realiza un prueba no parametrica de Kruskal-Wallis para confirma la hipótesis de que el tipo de implementación tiene un efecto sobre el tiempo, la prueba determina un $p$-value = 0.7721 que es mayor al error 0.05, por lo cual se rechaza la hipótesis anterior.
+
+esto debido a que el número de operaciones requerido para ambas implementaciones es aproximadamente igual.
 
 \section{Búsqueda binaria}
 
@@ -65,7 +67,9 @@ El gráfico \ref{fig:bs} muestra los resultados del diseño experimental en el t
 \end{figure}
 
 
-Los resultados muestran que existe una mejora menor en el tiempo de ejecución de la implementación recursiva respecto a la iterativa, sin embargo, no es concluyente, ya que al incrementar el tamaño de la instancia esta diferencia se muestra poco clara. Sería necesario realizar un diseño experimental más exhaustivo con un número mayor de repeticiones para lograr un argumento concluyente.
+Los resultados graficos muestran que existe una mejora menor en el tiempo de ejecución de la implementación recursiva respecto a la iterativa, para reforzar esta conclusión se realiza un prueba no parametrica de Kruskal-Wallis para confirma la hipotesis del efecto que tiene el tipo de implementación sobre el tiempo, la prueba determina un $p$-value = 0.003929, que es menor al error 0.05, por lo cual se acepta la hipótesis anterior.
+
+sin embargo, no es concluyente, ya que al incrementar el tamaño de la instancia esta diferencia se muestra poco clara. Sería necesario realizar un diseño experimental más exhaustivo con un número mayor de repeticiones para lograr un argumento concluyente.
 
 \begin{thebibliography}{0}
   \bibitem{Knuth1998} Donald Knuth, \textit{Sorting and searching}, The Art of Computer Programming, Addison-Wesley Professional, 1998.
