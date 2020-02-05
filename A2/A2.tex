@@ -56,14 +56,14 @@ la cual asumen las siguientes suposiciones: (1) El vector $V$ esta inicializado 
 Se realiza la implementación recursiva e iterativa de la búsqueda en Python, la evaluación se realiza ejecutando una serie de instancias, en este caso cada instancia se define como un vector con elementos enteros de tamaño ${2^n}$, donde $n\in \{1,\dots,30\}$, la ejecución se repite $k=5$ veces, el elemento $x$ a buscar se selecciona de manera aleatoria del vector para cada ejecución.
 
 \subsection{Resultados}
-El gráfico \ref{fig:bs} muestra los resultados del diseño experimental en el tiempo de computo expresado en escala logarítmica, el eje vertical expresa el valor de $n$ que define el tamaño de la instancia ${2^n}$.
+El gráfico \ref{fig:bs} muestra los resultados del diseño experimental en el tiempo de computo expresado en escala logarítmica, el eje vertical expresa el valor de $n$ que define el tamaño de la instancia ${2^n}$. 
 
-\begin{figure}[h!]
-  \includegraphics[width=\linewidth]{bs.pdf}
+\begin{figure}[h]
+ \centering
+  \includegraphics[width=11.5cm]{bs.pdf}
   \caption{Resultados del diseño experimental con $k=5$ ejecuciones para cada tipo de implementación e instancia de prueba de la búsqueda binaria}
   \label{fig:bs}
 \end{figure}
-
 
 Los resultados graficos muestran que existe una mejora menor en el tiempo de ejecución de la implementación recursiva respecto a la iterativa, para reforzar esta conclusión se realiza un prueba no parametrica de Kruskal-Wallis para confirma la hipotesis del efecto que tiene el tipo de implementación sobre el tiempo, la prueba determina un $p$-value = 0.003929, que es menor al error 0.05, por lo cual se acepta la hipótesis anterior.
 
