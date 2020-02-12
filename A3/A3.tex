@@ -24,7 +24,7 @@ Formalmente una máquina de Turing se describe como sigue $M = (Q,s,r,\Sigma,\de
 \begin{equation}
 \delta(q,\sigma)=(p,\rho,d),
 \end{equation}
-es una función de transición de $M$, donde $q\in Q\cup\{s,r\}$ es el estado actual y $\sigma\in\Sigma$ es el símbolo actual en el puntero, $p\in Q\cup\{s,r\}$ es el nuevo estado, $\rho$ el nuevo símbolo que es escrito en reemplazo de $\sigma$ en la posición actual y $d\in D$ es la dirección hacia donde se mueve el puntero.
+es una función de transición de $M$, donde $q\in Q\cup\{s,r\}$ es el estado actual y $\sigma\in\Sigma$ es el símbolo actual en el puntero, $p\in Q\cup\{s,r\}$ es el nuevo estado, $\rho$ el nuevo símbolo que es escrito en reemplazo de $\sigma$ en la posición actual y $d\in D$ es la dirección hacia donde se mueve el puntero \cite{Schaeffer2020}.
 
 En esta actividad se proporcionan las funciones de transición $\delta$ para dos máquinas de Turing de reconocimiento de lenguaje.
 
@@ -242,5 +242,8 @@ $\rhd$$\rhd$$\rhd$\textcolor{blue}{\underline{$\sqcup$}}$\sqcup$$\sqcup$  & $q_1
 \caption{Caso con estado final aceptable \textcolor{blue}{$q_f$}, donde $x=abba$}
 \end{table}
 
+\begin{thebibliography}{0}
+  \bibitem{Schaeffer2020} Elisa Schaeffer, \textit{Modelos computacionales}, Complejidad computacional de problemas y el análisis y diseño de algoritmos, notas de curso, 2020.
+\end{thebibliography}
 
 \end{document}
