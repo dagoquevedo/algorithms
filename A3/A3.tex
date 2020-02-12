@@ -1,0 +1,193 @@
+
+\documentclass[letterpaper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{mathtools}
+\usepackage{latexsym}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary {positioning}
+\definecolor {processblue}{cmyk}{0.96,0,0,0}
+
+
+\begin{document}
+
+\title{Modelos de Computación\\\large Máquinas de Turing\\\large Actividad 3}
+\author{Dagoberto Quevedo}
+\maketitle
+
+\begin{abstract}
+Una máquina de Turing puede simular cualquier algoritmo a través de una sola estructura de datos: sucesión de símbolos escrita en una cinta infinita, con operaciones de escritura y eliminación de símbolos.
+
+Formalmente una máquina de Turing se describe como sigue $M = (Q,s,r,\Sigma,\delta)$, donde $Q$ es un conjunto finito de estados, $s$ un estado de aceptación, $r$ un estado de rechazo, $\Sigma$ es un conjunto finito de símbolos, llamado el alfabeto de $M$, que contiene dos símbolos especiales $\rhd$ y $\sqcup$, $D$ conjunto de direcciones $\leftarrow$ (izquierda), $\rightarrow$ (derecha), $\textendash$ (sin mover), la función,
+\begin{equation}
+\delta(q,\sigma)=(p,\rho,d),
+\end{equation}
+es una función de transición de $M$, donde $q\in Q\cup\{s,r\}$ es el estado actual y $\sigma\in\Sigma$ es el símbolo actual en el puntero, $p\in Q\cup\{s,r\}$ es el nuevo estado, $\rho$ el nuevo símbolo que es escrito en reemplazo de $\sigma$ en la posición actual y $d\in D$ es la dirección hacia donde se mueve el puntero.
+
+En esta actividad se proporcionan las funciones de transición $\delta$ para dos máquinas de Turing de reconocimiento de lenguaje.
+
+\end{abstract}
+
+
+\section{Máquina de Turing A}
+Proporcione una función de transición $\delta$ para una máquina de Turing que determina si su entrada $x$ contiene una $a$ después de una $b$, tal que $q_1\in Q$ es el estado inicial, \textcolor{blue}{$q_f$} un estado de aceptación, \textcolor{red}{$q_e$} un estado de rechazo y $\Sigma = \{\rhd,a,b,c,\sqcup\}$ el alfabeto.
+
+\break
+
+\subsection{Función de transición $\delta$}
+\begin{multicols}{2}
+\begin{enumerate}
+\item $(q_1,\rhd) = (q_1,\rhd,\rightarrow)$
+\item $(q_1,a) = (q_1,a,\rightarrow)$
+\item $(q_1,c) = (q_1,c,\rightarrow)$
+\item $(q_1,b) = (q_2,b,\rightarrow)$
+\textcolor{blue}{\item $(q_2,a) = (q_f,a,\textendash)$}
+\item $(q_2,b) = (q_2,b,\rightarrow)$
+\item $(q_2,c) = (q_2,c,\rightarrow)$
+\textcolor{red}{\item $(q_1,\sqcup) = (q_e,\sqcup,\textendash)$}
+\textcolor{red}{\item $(q_2,\sqcup) = (q_e,\sqcup,\textendash)$}
+\end{enumerate}
+\end{multicols}
+
+\subsubsection{Representación gráfica}
+
+\begin{figure}[h!]
+\centering
+\begin {tikzpicture}[-latex ,auto ,node distance =4 cm and 5cm ,on grid ,
+semithick ,
+state/.style ={ circle ,
+draw, minimum width =1 cm}]
+\node[state] (q1) {$q_1$};
+\node[state] (q2) [right=of q1] {$q_2$};
+\node[state] (qf) [below=of q2] {\textcolor{blue}{$q_f$}};
+\node[state] (qe) [below=of q1] {\textcolor{red}{$q_e$}};
+
+\path (q1) edge [loop left] node[left] {$a$} (q1);
+\path (q1) edge [loop above] node[above] {$b$} (q1);
+\path (q1) edge [bend left =25] node[above =0.15 cm] {$b$} (q2);
+\path (q2) edge [loop right] node[right] {$b$} (q2);
+\path (q2) edge [loop above] node[above] {$c$} (q2);
+\path (q2) edge [bend left =25] node[right = 0.15 cm] {$a$} (qf);
+\path (q1) edge [bend right =25] node[left = 0.15 cm] {$b$} (qe);
+\path (q2) edge [bend right =0] node[left = 0.15 cm] {$b$} (qe);
+\end{tikzpicture}
+\end{figure}
+
+\subsection{Casos de prueba}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{c|c|c|c|c}
+\hline
+$x$ & $q$ & $p$ & $\rho$ & $d$ \\ \hline
+\textcolor{blue}{\underline{$\rhd$}}acbbac$\sqcup$  & $q_1$ & $q_1$ & $\rhd$ & $\rightarrow$  \\
+$\rhd$\textcolor{blue}{\underline{a}}cbbac$\sqcup$  & $q_1$ & $q_1$ & a & $\rightarrow$  \\
+$\rhd$a\textcolor{blue}{\underline{c}}bbac$\sqcup$  & $q_1$ & $q_1$ & c & $\rightarrow$  \\
+$\rhd$ac\textcolor{blue}{\underline{b}}bac$\sqcup$  & $q_1$ & $q_1$ & b & $\rightarrow$  \\
+$\rhd$acb\textcolor{blue}{\underline{b}}ac$\sqcup$  & $q_1$ & $q_2$ & b & $\rightarrow$  \\
+$\rhd$acbb\textcolor{blue}{\underline{a}}c$\sqcup$  & $q_2$ & \textcolor{blue}{$q_f$} & a & $\textendash$  \\\hline
+\end{tabular}
+\caption{Caso con estado final aceptable \textcolor{blue}{$q_f$}, donde $x=acbbac$}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{c|c|c|c|c}
+\hline
+$x$ & $q$ & $p$ & $\rho$ & $d$ \\ \hline
+\textcolor{blue}{\underline{$\rhd$}}acbbcc$\sqcup$  & $q_1$ & $q_1$ & $\rhd$ & $\rightarrow$  \\
+$\rhd$\textcolor{blue}{\underline{a}}cbbcc$\sqcup$  & $q_1$ & $q_1$ & a & $\rightarrow$  \\
+$\rhd$a\textcolor{blue}{\underline{c}}bbcc$\sqcup$  & $q_1$ & $q_1$ & c & $\rightarrow$  \\
+$\rhd$ac\textcolor{blue}{\underline{b}}bcc$\sqcup$  & $q_1$ & $q_1$ & b & $\rightarrow$  \\
+$\rhd$acb\textcolor{blue}{\underline{b}}cc$\sqcup$  & $q_1$ & $q_2$ & b & $\rightarrow$  \\
+$\rhd$acbb\textcolor{blue}{\underline{c}}c$\sqcup$  & $q_2$ & $q_2$ & c & $\rightarrow$  \\
+$\rhd$acbbc\textcolor{blue}{\underline{c}}$\sqcup$  & $q_2$ & $q_2$ & c & $\rightarrow$  \\
+$\rhd$acbbcc\textcolor{blue}{\underline{$\sqcup$}}  & $q_2$ & \textcolor{red}{$q_e$} & $\sqcup$ & $\textendash$  \\\hline
+\end{tabular}
+\caption{Caso con estado final rechazado \textcolor{red}{$q_e$}, donde $x=acbbcc$}
+\end{table}
+
+\break
+
+\section{Máquina de Turing B}
+
+Proporcione una función de transición $\delta$ para una máquina de Turing que identifica si una cadena proveniente de un alfabeto $\Sigma$ es o no un palíndromo, tal que $q_1\in Q$ es el estado inicial, \textcolor{blue}{$q_f$} un estado de aceptación, \textcolor{red}{$q_e$} un estado de rechazo y $\Sigma = \{\rhd,a,b,\sqcup\}$ el alfabeto.
+
+\subsection{Función de transición $\delta$}
+\begin{multicols}{2}
+\begin{enumerate}
+\item $(q_1,\rhd) = (q_1,\rhd,\rightarrow)$
+\item $(q_1,a) = (q_2,\rhd,\rightarrow)$
+\item $(q_2,a) = (q_2,a,\rightarrow)$
+\item $(q_2,b) = (q_2,b,\rightarrow)$
+\item $(q_2,\sqcup) = (q_3,\sqcup,\leftarrow)$
+\item $(q_3,a) = (q_4,\sqcup,\leftarrow)$
+\textcolor{red}{\item $(q_3,b) = (q_e,b,\textendash)$}
+\item $(q_4,a) = (q_4,a,\leftarrow)$
+\item $(q_4,b) = (q_4,b,\leftarrow)$
+\item $(q_4,\rhd) = (q_1,\rhd,\rightarrow)$
+\item $(q_1,b) = (q_5,\rhd,\rightarrow)$
+\item $(q_5,a) = (q_5,a,\rightarrow)$
+\item $(q_5,b) = (q_5,b,\rightarrow)$
+\item $(q_5,\sqcup) = (q_6,\sqcup,\leftarrow)$
+\item $(q_6,b) = (q_7,\sqcup,\leftarrow)$
+\textcolor{red}{\item $(q_6,a) = (q_e,a,\textendash)$}
+\item $(q_7,a) = (q_7,a,\leftarrow)$
+\item $(q_7,b) = (q_7,b,\leftarrow)$
+\item $(q_7,\rhd) = (q_1,\rhd,\rightarrow)$
+\textcolor{blue}{\item $(q_1,\sqcup) = (q_f,\sqcup,\textendash)$}
+
+\end{enumerate}
+\end{multicols}
+
+
+
+\subsection{Casos de prueba}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{c|c|c|c|c}
+\hline
+$x$ & $q$ & $p$ & $\rho$ & $d$ \\ \hline
+\textcolor{blue}{\underline{$\rhd$}}abbb$\sqcup$  & $q_1$ & $q_1$ & $\rhd$ & $\rightarrow$  \\
+$\rhd$\textcolor{blue}{\underline{a}}bbb$\sqcup$  & $q_1$ & $q_2$ & $\rhd$ & $\rightarrow$  \\
+$\rhd\rhd$\textcolor{blue}{\underline{b}}bb$\sqcup$  & $q_2$ & $q_2$ & b & $\rightarrow$  \\
+$\rhd\rhd$b\textcolor{blue}{\underline{b}}b$\sqcup$  & $q_2$ & $q_2$ & b & $\rightarrow$  \\
+$\rhd\rhd$bb\textcolor{blue}{\underline{b}}$\sqcup$  & $q_2$ & $q_2$ & a & $\rightarrow$  \\
+$\rhd\rhd$bbb\textcolor{blue}{\underline{$\sqcup$}}  & $q_2$ & $q_3$ & $\sqcup$ & $\leftarrow$  \\
+$\rhd\rhd$bb\textcolor{blue}{\underline{b}}$\sqcup$  & $q_3$ & \textcolor{red}{$q_e$} & b & $\textendash$  \\\hline
+\end{tabular}
+\caption{Caso con estado final rechazado \textcolor{red}{$q_e$}, donde $x=abbb$}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{c|c|c|c|c}
+\hline
+$x$ & $q$ & $p$ & $\rho$ & $d$ \\ \hline
+\textcolor{blue}{\underline{$\rhd$}}abba$\sqcup$  & $q_1$ & $q_1$ & $\rhd$ & $\rightarrow$  \\
+$\rhd$\textcolor{blue}{\underline{a}}bba$\sqcup$  & $q_1$ & $q_2$ & $\rhd$ & $\rightarrow$  \\
+$\rhd\rhd$\textcolor{blue}{\underline{b}}ba$\sqcup$  & $q_2$ & $q_2$ & b & $\rightarrow$  \\
+$\rhd\rhd$b\textcolor{blue}{\underline{b}}a$\sqcup$  & $q_2$ & $q_2$ & b & $\rightarrow$  \\
+$\rhd\rhd$bb\textcolor{blue}{\underline{a}}$\sqcup$  & $q_2$ & $q_2$ & a & $\rightarrow$  \\
+$\rhd\rhd$bba\textcolor{blue}{\underline{$\sqcup$}}  & $q_2$ & $q_3$ & $\sqcup$ & $\leftarrow$  \\
+$\rhd\rhd$bb\textcolor{blue}{\underline{a}}$\sqcup$  & $q_3$ & $q_4$ & $\sqcup$ & $\leftarrow$  \\
+$\rhd\rhd$b\textcolor{blue}{\underline{b}}$\sqcup\sqcup$  & $q_4$ & $q_4$ & b & $\leftarrow$  \\
+$\rhd\rhd$\textcolor{blue}{\underline{b}}b$\sqcup\sqcup$  & $q_4$ & $q_4$ & b & $\leftarrow$  \\
+$\rhd$\textcolor{blue}{\underline{$\rhd$}}bb$\sqcup\sqcup$  & $q_4$ & $q_1$ & $\rhd$ & $\leftarrow$  \\
+$\rhd\rhd$\textcolor{blue}{\underline{b}}b$\sqcup\sqcup$  & $q_1$ & $q_5$ & $\rhd$ & $\rightarrow$  \\
+$\rhd$$\rhd$$\rhd$\textcolor{blue}{\underline{b}}$\sqcup\sqcup$  & $q_5$ & $q_5$ & b & $\rightarrow$  \\
+$\rhd$$\rhd$$\rhd$b\textcolor{blue}{\underline{$\sqcup$}}$\sqcup$  & $q_5$ & $q_6$ & $\sqcup$ & $\leftarrow$  \\
+$\rhd$$\rhd$$\rhd$\textcolor{blue}{\underline{b}}$\sqcup\sqcup$  & $q_6$ & $q_7$ & $\sqcup$ & $\leftarrow$  \\
+$\rhd$$\rhd$\textcolor{blue}{\underline{$\rhd$}}$\sqcup$$\sqcup$$\sqcup$  & $q_7$ & $q_1$ & $\rhd$ & $\leftarrow$  \\
+$\rhd$$\rhd$$\rhd$\textcolor{blue}{\underline{$\sqcup$}}$\sqcup$$\sqcup$  & $q_1$ & \textcolor{blue}{$q_f$} & $\sqcup$ & $\textendash$  \\\hline
+\end{tabular}
+\caption{Caso con estado final aceptable \textcolor{blue}{$q_f$}, donde $x=abba$}
+\end{table}
+
+
+\end{document}
+
