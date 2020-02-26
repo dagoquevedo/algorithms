@@ -21,7 +21,7 @@
 
 \begin{abstract}
 
-Es posible definir diferentes tipos de clases de complejidad computacional. Los requisitos para definir una clase son: (I) fijar un modelo de computación (es decir, qué tipo de máquina Turing se utiliza), (II) la modalidad de computación: determinista, no determinista, etc. (III) el recurso el uso del cual se controla por la definición: tiempo, espacio, etc., (IV) la cota que se impone al recurso (es decir, una función f correcta de complejidad) \cite{Schaeffer2020}.
+Es posible definir diferentes tipos de clases de complejidad computacional. Los requisitos para definir una clase son: (I) fijar un modelo de computación (es decir, qué tipo de máquina Turing se utiliza), (II) la modalidad de computación: determinista, no determinista, etc. (III) el recurso el uso del cual se controla por la definición: tiempo, espacio, etc., (IV) la cota que se impone al recurso (es decir, una función $f$  correcta de complejidad) \cite{Schaeffer2020}.
 
 Formalmente, una clase de complejidad es el conjunto de todos los lenguajes decididos por alguna máquina Turing M del tipo I que opera en el modo de operación de II tal que para todo entrada $x$, $M$ necesita al máximo $f(|x|)$ unidades del recurso definido en III, donde $f$ es la función de IV.
 
@@ -72,11 +72,11 @@ Por lo anterior la demostración de reducción es la siguiente
 \begin{itemize}
 \item $V-S$ es una cobertura de vértices,
 \item Si $S$ es un conjunto independiente, este no tiene arista $(u,v)\in E$, tal que $u,v \in S$, por lo tanto toda arista $(u,v)\in E$, al menos un vértice 	$u,v$ no tendria que estar en $V-S$, entonces $V-S$ es una cobertura de vértices.
-\item Si $V-S$ es una cobertura de vértices, $u,v\in S, (u,v) \in E $
+\item Si $V-S$ es una cobertura de vértices, $u,v\in S, (u,v) \in E$ tal que ninguno de los vértices exista en $V-S$, por lo tanto ninguna par de vértices en $S$ puede estar conectado por una arista, asé que $S$ es un conjunto independiente en $G$.
+\item $G$ contiene un conjunto independiente de tamaño $k$, por lo tanto $G$ contiene una cobertura de vértices de tamaño $|V|-k$
+ 
 
 \end{itemize}
-
-\section{Ejercicio B}
 
 
 \begin{thebibliography}{0}
