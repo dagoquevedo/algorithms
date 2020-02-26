@@ -1,0 +1,86 @@
+\documentclass[letterpaper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{mathtools}
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary {positioning}
+\usepackage{algorithmic}
+\definecolor {processblue}{cmyk}{0.96,0,0,0}
+
+
+\begin{document}
+
+\title{Clases de complejidad\\\large Actividad 5}
+\author{Dagoberto Quevedo}
+\maketitle
+
+\begin{abstract}
+
+Es posible definir diferentes tipos de clases de complejidad computacional. Los requisitos para definir una clase son: (I) fijar un modelo de computación (es decir, qué tipo de máquina Turing se utiliza), (II) la modalidad de computación: determinista, no determinista, etc. (III) el recurso el uso del cual se controla por la definición: tiempo, espacio, etc., (IV) la cota que se impone al recurso (es decir, una función f correcta de complejidad) \cite{Schaeffer2020}.
+
+Formalmente, una clase de complejidad es el conjunto de todos los lenguajes decididos por alguna máquina Turing M del tipo I que opera en el modo de operación de II tal que para todo entrada $x$, $M$ necesita al máximo $f(|x|)$ unidades del recurso definido en III, donde $f$ es la función de IV.
+
+\end{abstract}
+
+
+\section{Ejercicio A - Cobertura de vértices}
+
+Dado un grafo no dirigido $(V,E)$, una cobertura de vértices es un subconjunto $W\subseteq V$, tal que para cada $(v,w)\in E$ se tiene $v,w\in W$, se considera el siguiente problema de decisión:
+\begin{itemize}
+\item Instancia: grafo no dirigido $G=(V,E)$, y un entero $k$
+\item Pregunta: ¿$G$ tiene una cobertura de vértices $W$ de a lo más $k$ vértices? 
+\end{itemize}
+
+\subsection{Demostración de NP}
+
+Para demostrar que el problema es de la clase NP, es necesario demostrar que una instancia se puede verificar en tiempo polinomial. Para ello se define el siguiente algoritmo que computa la verificación,
+\\
+\\
+\begin{algorithmic}
+\STATE $c\gets 0$
+\STATE $r\gets 0$
+
+\FOR {$v\in W \wedge E = \varnothing$} 
+	\STATE $q \gets {(u,v)\in E, u\in V }$
+	\STATE $E \gets E\setminus q$
+	\STATE $c \gets c + 1$
+	\IF{$c=k$} 
+		\STATE {$r\gets1$}
+	\ENDIF
+\ENDFOR
+\end{algorithmic}
+
+El algoritmo retorna la variable booleana $r$, que describe es 1 si la instancia es validad para las condiciones dadas 0 en otro caso. El peor caso para el cual se puede enfrentar este algoritmo es del orden $\mathcal{O}(n)$.
+
+\subsection{Demostración de NP}
+
+\subsection{Reducción desde el problema del conjunto independiente que cobertura de vértices es NP}
+
+El problema del conjunto independiente considera el siguiente problema de decisión:
+\begin{itemize}
+\item Instancia: grafo no dirigido $G=(V,E)$, y un entero $k$
+\item Pregunta: ¿$G$ tiene un conjunto independiente $S$ de tamaño mayor o igual a $k$? 
+\end{itemize}
+
+Por lo anterior la demostración de reducción es la siguiente
+
+\begin{itemize}
+\item $V-S$ es una cobertura de vértices,
+\item Si $S$ es un conjunto independiente, este no tiene arista $(u,v)\in E$, tal que $u,v \in S$, por lo tanto toda arista $(u,v)\in E$, al menos un vértice 	$u,v$ no tendria que estar en $V-S$, entonces $V-S$ es una cobertura de vértices.
+\item Si $V-S$ es una cobertura de vértices, $u,v\in S, (u,v) \in E $
+
+\end{itemize}
+
+\section{Ejercicio B}
+
+
+\begin{thebibliography}{0}
+  \bibitem{Schaeffer2020} Elisa Schaeffer, \textit{Modelos computacionales}, Complejidad computacional de problemas y el análisis y diseño de algoritmos, notas de curso, 2020.
+\end{thebibliography}
+
+\end{document}
