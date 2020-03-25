@@ -58,6 +58,7 @@ Las claves son almacenadas en un árbol binómico según el orden de montículo:
 La siguiente tabla resume el orden de operaciones requeridos para las operación usuales en montículos.
 
 \begin{table}[h!]
+
 \centering
 \begin{tabular}{l|c|c}
 Operación   & Binario & Binómico \\\hline
@@ -66,7 +67,8 @@ Minímo      & $\mathcal{O}(1)$       & $\mathcal{O}(\log n)$        \\
 Unión       & $\mathcal{O}(n)$       & $\mathcal{O}(\log n)$       \\
 Eliminación & $\mathcal{O}(\log n)$     & $\mathcal{O}(\log n)$      
 \end{tabular}
-\label{tbl:ope}
+\caption{Tiempo requerido por operaciones en montículos}
+\label{tab:ope}
 \end{table}
 
 
@@ -89,9 +91,7 @@ El gráfico \ref{fig:bs} muestra los resultados del diseño experimental en el t
 
 \subsection{Conclusiones}
 
-El montículo binario muestra un rendimiento superior para las operaciones asignadas, siendo consistente con tiempo en orden de operaciones requeridos para cada operación descrito en la tabla \ref{bl:ope}. Cabe señalar que el gráfico no muestra aun que el experimento alcanzo zona asintótica por lo que es requerido ampliar el tamaño del experimento de tal manera de tener resultados concluyentes.
-
-
+El montículo binario muestra un rendimiento superior para las operaciones asignadas, siendo consistente con tiempo en orden de operaciones requeridos para cada operación descrito en el cuadro \ref{tab:ope}. Cabe señalar que el gráfico no muestra aun que el experimento alcanzo zona asintótica por lo que es requerido ampliar el tamaño del experimento de tal manera de tener resultados concluyentes.
 
 
 \begin{thebibliography}{0}
